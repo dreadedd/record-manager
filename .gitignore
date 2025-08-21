@@ -1,0 +1,18 @@
+# PyCharm / JetBrains
+.idea/
+*.iml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv
+.env
+
+# SQLite DB (optional: ignore your local DB file)
+records.db
+
+# OS files
+.DS_Store
+Thumbs.db
