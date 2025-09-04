@@ -8,3 +8,4 @@ stacy = True
 print ("Stacy is here ")
 present = True
 print("Obed is here ")
+print("Stacy is here ")
