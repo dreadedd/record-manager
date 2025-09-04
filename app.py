@@ -15,3 +15,14 @@ def init_db():
     conn.close()
 
 print("✅ Database setup complete! Run part2_window next.")
+import tkinter as tk
+
+root = tk.Tk()
+root.title("Record Manager")
+root.geometry("700x600")
+root.configure(bg="#e6f7ff")
+
+tk.Label(root, text="Record Manager App", font=("Arial", 18, "bold"), bg="#e6f7ff").pack(pady=10)
+
+print("✅ Basic window created! Run part3_inputs next.")
+root.mainloop()
