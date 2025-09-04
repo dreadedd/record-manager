@@ -1,11 +1,11 @@
-print("Obed changed this file ")
-print("Titus is done. ")
-print("Obed changed this file ")
-print("Titus is done. ")
-print("gilbert likes eating. ")
-group_leader = "group leader"
-stacy = True 
-print ("Stacy is here ")
-present = True
-print("Obed is here ")
-print("Stacy is here ")
+import tkinter as tk
+
+root = tk.Tk()
+root.title("Record Manager")
+root.geometry("600x500")  # Enlarged window
+root.configure(bg="#e6f7ff")
+
+tk.Label(root, text="Record Manager App", font=("Arial", 18, "bold"), bg="#e6f7ff").pack(pady=10)
+
+root.mainloop()
+
