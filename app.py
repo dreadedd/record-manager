@@ -4,3 +4,5 @@ print("Obed changed this file ")
 print("Titus is done. ")
 print("gilbert likes eating. ")
 obed = "group leader"
+stacy = True 
+Print ("Stacy is here ")
