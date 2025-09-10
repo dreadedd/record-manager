@@ -15,7 +15,7 @@ def init_db():
     conn.close()
 
 print("✅ Database setup complete! Run part2_window next.")
-print('dickhead')
+print('die')
 import sqlite3
 import tkinter as tk
 
