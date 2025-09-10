@@ -160,3 +160,23 @@ status_label.pack()
 init_db()
 print("✅ Add function ready! Run part5_view next.")
 root.mainloop()
+k.Entry(root, width=40)
+entry_title.pack()
+
+tk.Label(root, text="Description:", bg="#e6f7ff").pack()
+entry_desc = tk.Entry(root, width=40)
+entry_desc.pack()
+
+btn_add = tk.Button(root, text="Add Record", command=add_record, bg="#0099cc", fg="white")
+btn_add.pack(pady=5)
+
+status_label = tk.Label(root, text="", bg="#e6f7ff")
+status_label.pack()
+
+init_db()
+print("✅ Add function ready! Run part5_view next.")
+root.mainloop()
+import sqlite3
+import tkinter as tk
+
+def init_db():
