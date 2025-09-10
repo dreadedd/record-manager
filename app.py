@@ -1,4 +1,5 @@
 import sqlite3
+import tkinter as tk
 
 # ------------------ Database Setup ------------------
 def init_db():
@@ -14,53 +15,8 @@ def init_db():
     conn.commit()
     conn.close()
 
-print("✅ Database setup complete! Run part2_window next.")
-import tkinter as tk
 
-root = tk.Tk()
-root.title("Record Manager")
-root.geometry("700x600")
-root.configure(bg="#e6f7ff")
-
-tk.Label(root, text="Record Manager App", font=("Arial", 18, "bold"), bg="#e6f7ff").pack(pady=10)
-
-print("✅ Basic window created! Run part3_inputs next.")
-root.mainloop()
-import tkinter as tk
-
-root = tk.Tk()
-root.title("Record Manager")
-root.geometry("700x600")
-root.configure(bg="#e6f7ff")
-
-# Title input
-tk.Label(root, text="Title:", bg="#e6f7ff").pack()
-entry_title = tk.Entry(root, width=40)
-entry_title.pack()
-
-# Description input
-tk.Label(root, text="Description:", bg="#e6f7ff").pack()
-entry_desc = tk.Entry(root, width=40)
-entry_desc.pack()
-
-print("✅ Input fields ready! Run part4_add next.")
-root.mainloop()
-import sqlite3
-import tkinter as tk
-
-def init_db():
-    conn = sqlite3.connect("records.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS records (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        description TEXT
-    )
-    """)
-    conn.commit()
-    conn.close()
-
+# ------------------ Functions ------------------
 def add_record():
     title = entry_title.get()
     desc = entry_desc.get()
@@ -79,31 +35,8 @@ def add_record():
     entry_desc.delete(0, tk.END)
 
     status_label.config(text="✅ Record added successfully!", fg="green")
+    view_records()
 
-root = tk.Tk()
-root.title("Record Manager")
-root.geometry("700x600")
-root.configure(bg="#e6f7ff")
-
-tk.Label(root, text="Title:", bg="#e6f7ff").pack()
-entry_title = tk.Entry(root, width=40)
-entry_title.pack()
-
-tk.Label(root, text="Description:", bg="#e6f7ff").pack()
-entry_desc = tk.Entry(root, width=40)
-entry_desc.pack()
-
-btn_add = tk.Button(root, text="Add Record", command=add_record, bg="#0099cc", fg="white")
-btn_add.pack(pady=5)
-
-status_label = tk.Label(root, text="", bg="#e6f7ff")
-status_label.pack()
-
-init_db()
-print("✅ Add function ready! Run part5_view next.")
-root.mainloop()
-import sqlite3
-import tkinter as tk
 
 def view_records():
     conn = sqlite3.connect("records.db")
@@ -116,21 +49,6 @@ def view_records():
     for row in rows:
         listbox.insert(tk.END, f"ID:{row[0]} | {row[1]} - {row[2]}")
 
-root = tk.Tk()
-root.title("Record Manager")
-root.geometry("700x600")
-root.configure(bg="#e6f7ff")
-
-listbox = tk.Listbox(root, width=60, height=10)
-listbox.pack(pady=10)
-
-btn_view = tk.Button(root, text="View Records", command=view_records, bg="#006600", fg="white")
-btn_view.pack(pady=5)
-
-print("✅ View function ready! Run part6_delete next.")
-root.mainloop()
-import sqlite3
-import tkinter as tk
 
 def delete_record():
     selected = listbox.curselection()
@@ -149,24 +67,6 @@ def delete_record():
     else:
         status_label.config(text="⚠️ Select a record to delete!", fg="red")
 
-root = tk.Tk()
-root.title("Record Manager")
-root.geometry("700x600")
-root.configure(bg="#e6f7ff")
-
-listbox = tk.Listbox(root, width=60, height=10)
-listbox.pack(pady=10)
-
-btn_delete = tk.Button(root, text="Delete Record", command=delete_record, bg="#cc0000", fg="white")
-btn_delete.pack(pady=5)
-
-status_label = tk.Label(root, text="", bg="#e6f7ff")
-status_label.pack()
-
-print("✅ Delete function ready! Run part7_update next.")
-root.mainloop()
-import sqlite3
-import tkinter as tk
 
 def update_record():
     selected = listbox.curselection()
@@ -176,6 +76,10 @@ def update_record():
 
         new_title = entry_title.get()
         new_desc = entry_desc.get()
+
+        if new_title.strip() == "":
+            status_label.config(text="⚠️ Title cannot be empty!", fg="red")
+            return
 
         conn = sqlite3.connect("records.db")
         cursor = conn.cursor()
@@ -188,38 +92,39 @@ def update_record():
     else:
         status_label.config(text="⚠️ Select a record to update!", fg="red")
 
+
+# ------------------ GUI Setup ------------------
 root = tk.Tk()
 root.title("Record Manager")
 root.geometry("700x600")
 root.configure(bg="#e6f7ff")
 
+tk.Label(root, text="🎨 Record Manager App", font=("Arial", 20, "bold"), bg="#e6f7ff", fg="#333").pack(pady=10)
+
+# Inputs
+tk.Label(root, text="Title:", bg="#e6f7ff").pack()
 entry_title = tk.Entry(root, width=40)
 entry_title.pack()
 
+tk.Label(root, text="Description:", bg="#e6f7ff").pack()
 entry_desc = tk.Entry(root, width=40)
 entry_desc.pack()
 
+# Buttons
+tk.Button(root, text="Add Record", command=add_record, bg="#0099cc", fg="white").pack(pady=5)
+tk.Button(root, text="View Records", command=view_records, bg="#006600", fg="white").pack(pady=5)
+tk.Button(root, text="Delete Record", command=delete_record, bg="#cc0000", fg="white").pack(pady=5)
+tk.Button(root, text="Update Record", command=update_record, bg="#ff9900", fg="white").pack(pady=5)
+
+# Listbox
 listbox = tk.Listbox(root, width=60, height=10)
 listbox.pack(pady=10)
 
-btn_update = tk.Button(root, text="Update Record", command=update_record, bg="#ff9900", fg="white")
-btn_update.pack(pady=5)
-
-status_label = tk.Label(root, text="", bg="#e6f7ff")
+# Status
+status_label = tk.Label(root, text="Welcome! Ready to manage records.", bg="#e6f7ff", fg="blue")
 status_label.pack()
 
-print("✅ Update function ready! Run part8_style next.")
-root.mainloop()
-import tkinter as tk
-
-root = tk.Tk()
-root.title("Record Manager")
-root.geometry("700x600")
-root.configure(bg="#e6f7ff")
-
-tk.Label(root, text="🎨 Styled Record Manager App", font=("Arial", 20, "bold"), bg="#e6f7ff", fg="#333").pack(pady=10)
-status_label = tk.Label(root, text="Welcome! All functions integrated!", bg="#e6f7ff", fg="blue")
-status_label.pack()
-
-print("✅ Styling done! Project complete.")
+# ------------------ Run App ------------------
+init_db()
+view_records()  # show records at startup
 root.mainloop()
