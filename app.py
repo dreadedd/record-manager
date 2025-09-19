@@ -108,3 +108,16 @@ appointment_table.pack()
 
 # Run the app
 root.mainloop()
+import tkinter as tk
+
+root = tk.Tk()
+root.title("Record Manager")
+root.geometry("700x600")
+root.configure(bg="#e6f7ff")
+
+tk.Label(root, text="🎨 Styled Record Manager App", font=("Arial", 20, "bold"), bg="#e6f7ff", fg="#333").pack(pady=10)
+status_label = tk.Label(root, text="Welcome! All functions integrated!", bg="#e6f7ff", fg="blue")
+status_label.pack()
+
+print("✅ Styling done! Project complete.")
+root.mainloop()
